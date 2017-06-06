@@ -65,7 +65,7 @@
       var score = 0
 var username = window.prompt('Enter a username:', '');
 document.getElementById('chatContent').innerHTML = "welcome to the chat forum"
-function setup() {
+document.getElementById("bb").onload = function(){
   socket = io();
  
   var msgs = []
