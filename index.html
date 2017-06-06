@@ -2,8 +2,24 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>chat room</title>
+  
   </head>
+   <title>Babylon.js + socket.io</title>
+        <!-- Babylon.js -->
+        <script src="https://www.babylonjs.com/hand.minified-1.2.js"></script>
+        <script src="https://www.babylonjs.com/cannon.js"></script>
+        <script src="https://www.babylonjs.com/oimo.js"></script>
+        <script src="https://www.babylonjs.com/babylon.js"></script>
+   <div id="canvasZone">
+        <canvas id="renderCanvas"></canvas>
+</div>
+    <style>
+          #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
   <body id = "bb" onload="setup();">
     <div class="container">
       <br />
@@ -18,6 +34,32 @@
       <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
    <script>
+     //BJS code
+      var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+        var createScene = function () {
+        
+            var scene = new BABYLON.Scene(engine);
+ var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+        
+            // This targets the camera to scene origin
+            camera.setTarget(BABYLON.Vector3.Zero());
+        
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+        
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+        
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+        
+            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+             var sphere = BABYLON.Mesh.CreateSphere("sphere1",10, 0.5, scene);
+        
+            // Move the sphere upward 1/2 its height
+            sphere.position.y = 1;
+     ///***********************************\\\
      var socket;
       var usr = []
       var score = 0
@@ -39,49 +81,11 @@ function setup() {
   }
       })
     })
-  
-  //new
+
    socket.on("ademola", function(gme){
   document.getElementById('chatContent').innerHTML = gme;
      })
-/*  function myFunction() {
-    msgs.push(document.getElementById('chatContent').innerHTML)
-    socket.emit("hunts", msgs)
-}
-document.getElementById("bb").onload = myFunction();
-    socket.on("hunts", function(me){
-//  document.getElementById('waste').innerHTML = me;
-      alert(me)
-     });*/
-  //setInterval(function(){
-  //},10)
-/*socket.on('connect', function() {
- usr.push(score)
-//socket.emit("hunts", usr)
-    socket.on("hunts", function(me){
-    score++
-     usr.push(score)
-   // alert(document.getElementById('chatContent').innerHTML)
-      socket.emit("hunts", document.getElementById('chatContent').innerHTML)
-//   document.getElementById('waste').innerHTML = document.getElementById('chatContent').innerHTML 
-  // var x = usr.slice(-1)[0];
-  //console.log(usr);
- //   msgs.push(document.getElementById('messageInput').value)
-//   var p = String(msgs)
-  // console.log(p)
-    socket.on("hunts", function(me){
-  document.getElementById('waste').innerHTML = me;
-     });
 
-    })
-  
-     if(usr == 2){
-     console.log(usr)
-       //socket.emit("hunts", document.getElementById('chatContent').innerHTML)
-    }
-  })
-
-})*/
   // Uptade messages
     socket.on ('old_messages', function(message){
             for (var i=1; i<message.length(); i++){
@@ -101,7 +105,18 @@ function send() {
   document.getElementById('messageInput').value = '';
 }
 
-
+    ////////////////MULT//////////////////////////////////////////
+    return scene;
+};
+        
+        var scene = createScene();
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
     </script>
     </div>
   </body>
