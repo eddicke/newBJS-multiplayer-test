@@ -18,13 +18,13 @@
       <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
    <script>
-    
+    var socket;
       var usr = []
       var score = 0
 var username = window.prompt('Enter a username:', '');
 document.getElementById('chatContent').innerHTML = "welcome to the chat forum"
 function setup() {
-  var socket = io();
+ socket = io();
  
   var msgs = []
   var pm = []
