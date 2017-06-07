@@ -32,6 +32,7 @@
       <button onclick="send();">Send</button>
       <script src="client.js"></script>
       <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
    <script>
      //BJS code
@@ -60,13 +61,14 @@
             // Move the sphere upward 1/2 its height
             sphere.position.y = 1;*/
      ///***********************************\\\
-     var socket;
+     
       var usr = []
       var score = 0
 var username = window.prompt('Enter a username:', '');
 document.getElementById('chatContent').innerHTML = "welcome to the chat forum"
-document.getElementById("bb").onload = function(){
-  socket = io();
+
+     $(function () {
+  var socket = io();
  
   var msgs = []
   var pm = []
@@ -104,7 +106,7 @@ function send() {
  //   pm.push(document.getElementById('chatContent').innerHTML)
   document.getElementById('messageInput').value = '';
 }
-
+     })
     ////////////////MULT//////////////////////////////////////////
     /* return scene;
 };
