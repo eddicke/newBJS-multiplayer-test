@@ -41,10 +41,13 @@ document.getElementById('chatContent').innerHTML = "welcome to the chat forum"
      function setup() {
  socket = io();
  
-  var msgs = []
+  
+  
+}
+     var msgs = []
   var pm = []
   var usrs = 0
-  socket.on('connect', function() {
+socket.on('connect', function() {
 // usr.push(score)
  socket.emit("hunts", document.getElementById('chatContent').innerHTML)
     socket.on("hunts", function(me){
@@ -71,8 +74,6 @@ document.getElementById('chatContent').innerHTML = "welcome to the chat forum"
     if(author == username) format = 'b';
     document.getElementById('chatContent').innerHTML += '<p><' + format + '>' + author + '</' + format + '> | ' + message + '</p>';
   });
-}
-
 function send() {
   socket.emit('chat', document.getElementById('messageInput').value, username);
  //   pm.push(document.getElementById('chatContent').innerHTML)
